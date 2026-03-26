@@ -4,146 +4,176 @@ function ImageGallery({ images, title }) {
   const [current, setCurrent] = useState(0);
   const total = images.length;
 
-  const prevSlide = () => {
+  const prevSlide = (e) => {
+    e.stopPropagation();
     setCurrent((prev) => (prev === 0 ? total - 1 : prev - 1));
   };
 
-  const nextSlide = () => {
+  const nextSlide = (e) => {
+    e.stopPropagation();
     setCurrent((prev) => (prev === total - 1 ? 0 : prev + 1));
   };
 
   return (
     <>
-      <div className="gallery-card">
-        {/* {title && <h2 className="gallery-title">{title}</h2>} */}
+      <div className="gallery">
+        {/* IMAGE */}
+        <div className="gallery__imageWrapper">
+          <img
+            src={images[current]}
+            alt={`${title} ${current + 1}`}
+          />
 
-        <div className="carousel">
-          <button className="nav left" onClick={prevSlide}>❮</button>
+          {/* OVERLAY */}
+          <div className="gallery__overlay" />
 
-          <div className="image-wrapper">
-            <img src={images[current]} alt={`${title} ${current + 1}`} />
+          {/* NAV BUTTONS */}
+          {total > 1 && (
+            <>
+              <button className="gallery__btn gallery__btn--left" onClick={prevSlide}>
+                ❮
+              </button>
+              <button className="gallery__btn gallery__btn--right" onClick={nextSlide}>
+                ❯
+              </button>
+            </>
+          )}
+
+          {/* TOP INFO */}
+          <div className="gallery__topBar">
+            {current + 1}/{total}
           </div>
-
-          <button className="nav right" onClick={nextSlide}>❯</button>
         </div>
 
-        <div className="dots">
-          {images.map((_, i) => (
-            <span
-              key={i}
-              className={`dot ${i === current ? "active" : ""}`}
-              onClick={() => setCurrent(i)}
-            />
-          ))}
-        </div>
+        {/* DOTS */}
+        {total > 1 && (
+          <div className="gallery__dots">
+            {images.map((_, i) => (
+              <span
+                key={i}
+                className={`gallery__dot ${i === current ? "active" : ""}`}
+                onClick={() => setCurrent(i)}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <style>{`
-        /* ===== Card ===== */
-        .gallery-card {
-          max-width: 420px;
-          margin: 2rem auto;
-          padding: 1.5rem;
-          border-radius: 20px;
-          background: #ffffff;
-          box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-        }
-
-        .gallery-title {
-          text-align: center;
-          font-size: 1.4rem;
-          font-weight: 600;
-          margin-bottom: 1rem;
-          color: #111827;
-        }
-
-        /* ===== Carousel ===== */
-        .carousel {
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .image-wrapper {
+        .gallery {
           width: 100%;
-          aspect-ratio: 1 / 1;
+        }
+
+        /* IMAGE */
+        .gallery__imageWrapper {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 4 / 3;
           overflow: hidden;
           border-radius: 16px;
           background: #e5e7eb;
         }
 
-        .image-wrapper img {
+        .gallery__imageWrapper img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          display: block;
-          transition: transform 0.4s ease;
+          transition: transform 0.6s ease;
         }
 
-        .image-wrapper img:hover {
-          transform: scale(1.05);
+        .gallery:hover img {
+          transform: scale(1.08);
         }
 
-        /* ===== Navigation ===== */
-        .nav {
+        /* OVERLAY */
+        .gallery__overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(
+            to top,
+            rgba(0,0,0,0.35),
+            rgba(0,0,0,0.05)
+          );
+        }
+
+        /* BUTTONS */
+        .gallery__btn {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          border: none;
-          width: 38px;
-          height: 38px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
+          border: none;
+          background: rgba(255,255,255,0.8);
+          backdrop-filter: blur(8px);
+          color: #111;
+          font-size: 16px;
+          cursor: pointer;
+          display: grid;
+          place-items: center;
+          opacity: 0;
+          transition: all 0.25s ease;
+        }
+
+        .gallery:hover .gallery__btn {
+          opacity: 1;
+        }
+
+        .gallery__btn:hover {
+          transform: translateY(-50%) scale(1.1);
+          background: white;
+        }
+
+        .gallery__btn--left { left: 10px; }
+        .gallery__btn--right { right: 10px; }
+
+        /* TOP BAR */
+        .gallery__topBar {
+          position: absolute;
+          top: 10px;
+          left: 10px;
           background: rgba(0,0,0,0.5);
           color: white;
-          font-size: 18px;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: background 0.3s ease, transform 0.2s ease;
+          font-size: 12px;
+          padding: 4px 10px;
+          border-radius: 999px;
+          backdrop-filter: blur(6px);
         }
 
-        .nav:hover {
-          background: rgba(0,0,0,0.7);
-          transform: translateY(-50%) scale(1.1);
-        }
-
-        .nav.left { left: 10px; }
-        .nav.right { right: 10px; }
-
-        /* ===== Dots ===== */
-        .dots {
+        /* DOTS */
+        .gallery__dots {
           display: flex;
           justify-content: center;
-          gap: 8px;
-          margin-top: 1rem;
+          gap: 6px;
+          margin-top: 10px;
         }
 
-        .dot {
-          width: 9px;
-          height: 9px;
+        .gallery__dot {
+          width: 7px;
+          height: 7px;
           border-radius: 50%;
-          background: #d1d5db;
+          background: #cbd5f5;
           cursor: pointer;
-          transition: transform 0.2s ease, background 0.3s ease;
+          transition: all 0.25s ease;
         }
 
-        .dot:hover {
-          transform: scale(1.2);
+        .gallery__dot.active {
+          width: 18px;
+          border-radius: 999px;
+          background: #1e88e5;
         }
 
-        .dot.active {
-          background: #111827;
-          transform: scale(1.3);
-        }
+        /* MOBILE */
+        @media (max-width: 600px) {
+          .gallery__btn {
+            opacity: 1;
+            width: 30px;
+            height: 30px;
+          }
 
-        /* ===== Responsive ===== */
-        @media (max-width: 480px) {
-          .gallery-card {
-            margin: 1rem;
-            padding: 1rem;
-            border-radius: 16px;
+          .gallery__topBar {
+            font-size: 11px;
           }
         }
       `}</style>

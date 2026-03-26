@@ -5,7 +5,7 @@ import packages from "../data/package";
 
 function Booking() {
   const { slug } = useParams();
-  const pkg = packages.find(p => p.slug === slug);
+  const pkg = packages.find((p) => p.slug === slug);
 
   const [form, setForm] = useState({
     fullName: "",
@@ -13,20 +13,16 @@ function Booking() {
     phone: "",
     checkIn: "",
     checkOut: "",
-    guests: 1
+    guests: 1,
   });
 
-  // ✅ DATE LOGIC — ADD HERE
   const today = new Date();
-
-  // Check-in allowed only after 24 hours
-  const minCheckInDate = new Date(today.getTime() + 24 * 60 * 60 * 1000)
+  const minCheckInDate = new Date(today.getTime() + 86400000)
     .toISOString()
     .split("T")[0];
 
-  // Check-out allowed only after check-in date
   const minCheckOutDate = form.checkIn
-    ? new Date(new Date(form.checkIn).getTime() + 24 * 60 * 60 * 1000)
+    ? new Date(new Date(form.checkIn).getTime() + 86400000)
         .toISOString()
         .split("T")[0]
     : "";
@@ -34,7 +30,6 @@ function Booking() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ✅ Extra validation
     const checkInDate = new Date(form.checkIn);
     const checkOutDate = new Date(form.checkOut);
 
@@ -47,13 +42,13 @@ function Booking() {
       ...form,
       packageId: pkg.id,
       packageTitle: pkg.title,
-      price: pkg.price
+      price: pkg.price,
     };
 
     try {
       await axios.post("http://localhost:4000/bookings", bookingData);
       alert("Booking Successful ✅");
-    } catch (error) {
+    } catch {
       alert("Booking Failed ❌");
     }
   };
@@ -65,61 +60,185 @@ function Booking() {
   if (!pkg) return <h2>Package not found</h2>;
 
   return (
-    <main className="container">
-      <h1>Book: {pkg.title}</h1>
+    <>
+      <main className="booking">
+        {/* LEFT - PACKAGE INFO */}
+        <div className="summary">
+          <img src={pkg.images[0]} alt={pkg.title} />
+          <div className="summary-content">
+            <h2>{pkg.title}</h2>
+            <p>Luxury stay with guided tours & premium experience.</p>
 
-      <form className="form" onSubmit={handleSubmit}>
-        <input
-          name="fullName"
-          placeholder="Full Name"
-          onChange={handleChange}
-          required
-        />
+            <div className="price">
+              ₹{pkg.price} <span>/ person</span>
+            </div>
 
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          onChange={handleChange}
-          required
-        />
+            <div className="cta-box">
+              <p>🔥 Limited slots available!</p>
+              <button>Reserve your spot now</button>
+            </div>
+          </div>
+        </div>
 
-        <input
-          name="phone"
-          placeholder="Phone"
-          onChange={handleChange}
-          required
-        />
+        {/* RIGHT - FORM */}
+        <form className="form" onSubmit={handleSubmit}>
+          <h3>Complete Your Booking</h3>
 
-        <label>Check-In</label>
-        <input
-          type="date"
-          name="checkIn"
-          min={minCheckInDate}
-          onChange={handleChange}
-          required
-        />
+          <input name="fullName" placeholder="Full Name" onChange={handleChange} required />
+          <input name="email" type="email" placeholder="Email" onChange={handleChange} required />
+          <input name="phone" placeholder="Phone" onChange={handleChange} required />
 
-        <label>Check-Out</label>
-        <input
-          type="date"
-          name="checkOut"
-          min={minCheckOutDate}
-          onChange={handleChange}
-          required
-        />
+          <div className="row">
+            <div>
+              <label>Check-In</label>
+              <input type="date" name="checkIn" min={minCheckInDate} onChange={handleChange} required />
+            </div>
 
-        <label>Guests</label>
-        <input
-          type="number"
-          name="guests"
-          min="1"
-          onChange={handleChange}
-        />
+            <div>
+              <label>Check-Out</label>
+              <input type="date" name="checkOut" min={minCheckOutDate} onChange={handleChange} required />
+            </div>
+          </div>
 
-        <button type="submit">Confirm Booking</button>
-      </form>
-    </main>
+          <label>Guests</label>
+          <input type="number" name="guests" min="1" onChange={handleChange} />
+
+          <button type="submit" className="submit">
+            Confirm Booking →
+          </button>
+        </form>
+      </main>
+
+      {/* CSS */}
+      <style>{`
+        * { box-sizing: border-box; }
+
+        .booking {
+          width: 100vw;
+          margin-left: calc(50% - 50vw);
+          padding: 40px clamp(16px, 5vw, 80px);
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 40px;
+          background: linear-gradient(to bottom, #f8fafc, #ffffff);
+        }
+
+        /* LEFT */
+        .summary {
+          background: white;
+          border-radius: 20px;
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .summary img {
+          width: 100%;
+          height: 250px;
+          object-fit: cover;
+        }
+
+        .summary-content {
+          padding: 20px;
+        }
+
+        .summary h2 {
+          margin: 0 0 10px;
+          font-size: 22px;
+        }
+
+        .summary p {
+          color: #64748b;
+          font-size: 14px;
+        }
+
+        .price {
+          font-size: 22px;
+          font-weight: 800;
+          margin: 16px 0;
+        }
+
+        .price span {
+          font-size: 14px;
+          color: #64748b;
+        }
+
+        .cta-box {
+          background: linear-gradient(135deg, #1e88e5, #2563eb);
+          color: white;
+          padding: 16px;
+          border-radius: 12px;
+          margin-top: 16px;
+        }
+
+        .cta-box button {
+          margin-top: 10px;
+          background: white;
+          color: #1e88e5;
+          border: none;
+          padding: 8px 14px;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: 600;
+        }
+
+        /* FORM */
+        .form {
+          background: white;
+          padding: 24px;
+          border-radius: 20px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+
+        .form h3 {
+          margin-bottom: 10px;
+        }
+
+        .form input {
+          padding: 12px;
+          border-radius: 10px;
+          border: 1px solid #e5e7eb;
+          font-size: 14px;
+        }
+
+        .row {
+          display: flex;
+          gap: 10px;
+        }
+
+        .row div {
+          flex: 1;
+        }
+
+        .submit {
+          background: linear-gradient(135deg, #1e88e5, #2563eb);
+          color: white;
+          border: none;
+          padding: 14px;
+          border-radius: 10px;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+        }
+
+        .submit:hover {
+          opacity: 0.9;
+        }
+
+        /* MOBILE */
+        @media (max-width: 900px) {
+          .booking {
+            grid-template-columns: 1fr;
+          }
+
+          .summary img {
+            height: 200px;
+          }
+        }
+      `}</style>
+    </>
   );
 }
 
