@@ -46,7 +46,7 @@ function Booking() {
     };
 
     try {
-      await axios.post("https://bookmytour-nine.vercel.app/", bookingData);
+      await axios.post("https://bookmytour-yyzo.onrender.com/", bookingData);
       alert("Booking Successful ✅");
     } catch {
       alert("Booking Failed ❌");
