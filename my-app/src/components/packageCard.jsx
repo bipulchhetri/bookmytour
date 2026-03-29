@@ -54,6 +54,7 @@ function PackageCard({ pkg }) {
           cursor: pointer;
           display: flex;
           flex-direction: column;
+       
         }
 
         .pkg-card:hover {

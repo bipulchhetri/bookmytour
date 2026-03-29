@@ -30,7 +30,8 @@ const Allpackage = () => {
             // width: 100vw;
             // margin-left: calc(50% - 50vw);
             // padding: 40px clamp(16px, 5vw, 80px);
-            background: linear-gradient(to bottom, #f8fafc, #ffffff);
+            // background: linear-gradient(to bottom, #f8fafc, #ffffff);
+            margin-top:3%;
           }
 
           /* ===== HEADER ===== */

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Menu, X, Search, ShoppingCart, ChevronDown } from "lucide-react";
+import { Menu, X, Search, ShoppingCart } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -9,47 +10,33 @@ export default function Navbar() {
       <header className="nav">
         {/* LOGO */}
         <div className="logo">
-          Travel<span>.co</span>
+          <Link to="/">Tripora</Link>
         </div>
 
         {/* DESKTOP MENU */}
         <nav className="menu desktop">
-          <a href="#">HOME <ChevronDown size={14} /></a>
-          <a href="#">TOURS <ChevronDown size={14} /></a>
-          <a href="#">ABOUT <ChevronDown size={14} /></a>
-          <a href="#">BLOG <ChevronDown size={14} /></a>
-          <a href="#">PAGES <ChevronDown size={14} /></a>
-          <a href="#">CONTACT <ChevronDown size={14} /></a>
+          <Link to="/">Home</Link>
+          <Link to="/packages">Package</Link>
+          <Link to="/about">About Us</Link>
         </nav>
 
         {/* RIGHT SIDE */}
         <div className="actions">
-          <button className="iconBtn desktop">
-            <Search size={18} />
-          </button>
+    
+          <button className="cta desktop"><a href="tel:8250742530" target="_blank" rel="noopener noreferrer">Call Now</a></button>
 
-          <button className="iconBtn cart desktop">
-            <ShoppingCart size={18} />
-            <span className="badge">3</span>
-          </button>
-
-          <button className="cta desktop">BOOK YOUR STAY</button>
-
-          {/* MOBILE BUTTON */}
+          {/* MOBILE MENU BUTTON */}
           <button className="menuBtn" onClick={() => setOpen(!open)}>
-            {open ? <X size={22} /> : <Menu size={22} />}
+            {open ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {/* MOBILE MENU */}
         <div className={`mobileMenu ${open ? "open" : ""}`}>
-          <a href="#">Home</a>
-          <a href="#">Tours</a>
-          <a href="#">About</a>
-          <a href="#">Blog</a>
-          <a href="#">Pages</a>
-          <a href="#">Contact</a>
-          <button className="cta full">BOOK YOUR STAY</button>
+          <Link to="/" onClick={() => setOpen(false)}>Home</Link>
+          <Link to="/packages">Package</Link>
+          <Link to="/about">About Us</Link>
+          <button className="cta  full"><a href="tel:8250742530" target="_blank" rel="noopener noreferrer">Call Now</a></button>
         </div>
       </header>
 
@@ -64,44 +51,46 @@ export default function Navbar() {
           font-family: Arial, sans-serif;
         }
 
-        /* FULL WIDTH NAVBAR */
+        /* NAVBAR */
         .nav {
-          width: 100vw;
-          margin-left: calc(50% - 50vw);
+          width: 100%;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 16px clamp(16px, 5vw, 60px);
-          background: #0a2346;
+          padding: 16px 40px;
+          background: orange;
           color: white;
-          position: relative;
+          position: sticky;
+          top: 0;
           z-index: 1000;
         }
 
-        .logo {
+        /* LOGO */
+        .logo a {
+          color: white;
+          text-decoration: none;
           font-size: 24px;
-          font-weight: 700;
+          font-weight: bold;
         }
 
-        .logo span {
-          opacity: 0.8;
-        }
-
+        /* MENU */
         .menu {
           display: flex;
-          gap: 28px;
+          gap: 30px;
         }
 
         .menu a {
-          display: flex;
-          align-items: center;
-          gap: 4px;
           color: white;
           text-decoration: none;
-          font-size: 13px;
-          letter-spacing: 1px;
+          font-size: 16px;
+          transition: 0.3s;
         }
 
+        .menu a:hover {
+          color: #1e88e5;
+        }
+
+        /* ACTIONS */
         .actions {
           display: flex;
           align-items: center;
@@ -109,16 +98,16 @@ export default function Navbar() {
         }
 
         .iconBtn {
-          position: relative;
           border: 1px solid rgba(255,255,255,0.3);
           background: transparent;
           color: white;
-          width: 36px;
-          height: 36px;
+          width: 38px;
+          height: 38px;
           border-radius: 50%;
           display: grid;
           place-items: center;
           cursor: pointer;
+          position: relative;
         }
 
         .badge {
@@ -135,15 +124,20 @@ export default function Navbar() {
         }
 
         .cta {
-          background: #1e88e5;
+          background: white !important;
           border: none;
-          padding: 10px 16px;
-          color: white;
+          padding: 10px 18px;
+          color: black !important;
           border-radius: 4px;
-          font-size: 12px;
           cursor: pointer;
+          font-size: 13px;
         }
-
+          .cta a{
+          text-decoration:none;
+          color:black !important:
+        }
+    
+        /* MOBILE BUTTON */
         .menuBtn {
           display: none;
           background: transparent;
@@ -157,21 +151,17 @@ export default function Navbar() {
           position: absolute;
           top: 100%;
           left: 0;
-          width: 100vw;
-          margin-left: calc(50% - 50vw);
-
+          width: 100%;
           background: #0a2346;
-          z-index: 999;
-
           display: flex;
           flex-direction: column;
-          gap: 16px;
           padding: 20px;
+          gap: 16px;
 
           transform: translateY(-20px);
           opacity: 0;
           pointer-events: none;
-          transition: all 0.3s ease;
+          transition: 0.3s ease;
         }
 
         .mobileMenu.open {
@@ -181,7 +171,7 @@ export default function Navbar() {
         }
 
         .mobileMenu a {
-          color: white;
+          color: black;
           text-decoration: none;
           font-size: 16px;
         }
@@ -198,6 +188,12 @@ export default function Navbar() {
 
           .menuBtn {
             display: block;
+          }
+        }
+
+        @media (max-width: 500px) {
+          .nav {
+            padding: 14px 20px;
           }
         }
       `}</style>
