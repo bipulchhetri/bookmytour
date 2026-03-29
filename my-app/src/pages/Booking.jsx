@@ -46,7 +46,7 @@ function Booking() {
     };
 
     try {
-      await axios.post("http://localhost:4000/bookings", bookingData);
+      await axios.post("https://bookmytour-nine.vercel.app/", bookingData);
       alert("Booking Successful ✅");
     } catch {
       alert("Booking Failed ❌");
