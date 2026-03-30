@@ -7,7 +7,9 @@ const connectDB = require("./config/db");
 const app = express();
 
 // ✅ Connect DB
-connectDB();
+connectDB()
+  .then(() => console.log("✅ DB Connected"))
+  .catch((err) => console.log("❌ DB Error:", err.message));
 
 
 
