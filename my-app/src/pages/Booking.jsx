@@ -46,7 +46,7 @@ function Booking() {
     };
 
     try {
-      await axios.post("https://bookmytour-3.onrender.com/", bookingData);
+      await axios.post("https://bookmytour-3.onrender.com", bookingData);
       alert("Booking Successful ✅");
     } catch {
       alert("Booking Failed ❌");
