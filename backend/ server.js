@@ -9,8 +9,7 @@ const app = express();
 // ✅ Connect DB
 connectDB();
 
-// ✅ Body parser
-app.use(express.json());
+
 
 // ✅ 👉 ADD CORS HERE (middleware area)
 // ✅ CORS first
