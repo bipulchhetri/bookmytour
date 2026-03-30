@@ -25,6 +25,10 @@ app.use(
 // then JSON
 app.use(express.json());
 
+const bookingRoutes = require("./routes/bookingRoutes");
+app.use("/api", bookingRoutes);
+
+
 
 // ✅ Test route
 app.get("/", (req, res) => {
