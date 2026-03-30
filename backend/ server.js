@@ -13,16 +13,17 @@ connectDB();
 app.use(express.json());
 
 // ✅ 👉 ADD CORS HERE (middleware area)
+// ✅ CORS first
 app.use(
   cors({
     origin: "https://bookmytour-fciv.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   })
 );
 
-// ✅ Routes (must come AFTER middleware)
-app.use("/", require("./routes/bookingRoutes"));
+// then JSON
+app.use(express.json());
+
 
 // ✅ Test route
 app.get("/", (req, res) => {
