@@ -15,7 +15,7 @@ app.use(express.json());
 // ✅ 👉 ADD CORS HERE (middleware area)
 app.use(
   cors({
-    origin: "https://bookmytour-fciv.vercel.app/",
+    origin: "https://bookmytour-fciv.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   })
