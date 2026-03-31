@@ -48,7 +48,7 @@ function Booking() {
     try {
       await axios.post("https://bookmytour-3.onrender.com/api/bookings", bookingData);
       alert("Booking Successful ✅");
-      if(resizeBy.status==201)
+      if(res.status==201)
         {
           Navigate("/success");
         }
