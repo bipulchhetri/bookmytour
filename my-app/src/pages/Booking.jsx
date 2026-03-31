@@ -2,7 +2,8 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import packages from "../data/package";
-
+import { useNavigate } from "react-router-dom";
+const navigate = useNavigate();
 function Booking() {
   const { slug } = useParams();
   const pkg = packages.find((p) => p.slug === slug);
@@ -47,10 +48,11 @@ function Booking() {
 
     try {
       await axios.post("https://bookmytour-3.onrender.com/api/bookings", bookingData);
-      alert("Booking Successful ✅");
+     
       if(res.status==201)
         {
-          Navigate("/success");
+          alert("Booking Successful ✅");
+          navigate("/success");
         }
     } 
   
