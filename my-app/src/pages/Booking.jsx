@@ -1,11 +1,12 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import packages from "../data/package";
-import { useNavigate } from "react-router-dom";
 
 function Booking() {
   const { slug } = useParams();
+  const navigate = useNavigate();
+
   const pkg = packages.find((p) => p.slug === slug);
 
   const [form, setForm] = useState({
@@ -17,6 +18,7 @@ function Booking() {
     guests: 1,
   });
 
+  // Min dates
   const today = new Date();
   const minCheckInDate = new Date(today.getTime() + 86400000)
     .toISOString()
@@ -28,6 +30,7 @@ function Booking() {
         .split("T")[0]
     : "";
 
+  // Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -47,16 +50,17 @@ function Booking() {
     };
 
     try {
-      await axios.post("https://bookmytour-3.onrender.com/api/bookings", bookingData);
-     
-      if(res.status==201)
-        {
-          alert("Booking Successful ✅");
-          navigate("/success");
-        }
-    } 
-  
-    catch {
+      const res = await axios.post(
+        "https://bookmytour-3.onrender.com/api/bookings",
+        bookingData
+      );
+
+      if (res.status === 201) {
+        alert("Booking Successful ✅");
+        navigate("/success");
+      }
+    } catch (error) {
+      console.error("Booking Error:", error);
       alert("Booking Failed ❌");
     }
   };
@@ -83,7 +87,7 @@ function Booking() {
 
             <div className="cta-box">
               <p>🔥 Limited slots available!</p>
-              <button>Reserve your spot now</button>
+              <button type="button">Reserve your spot now</button>
             </div>
           </div>
         </div>
@@ -92,24 +96,58 @@ function Booking() {
         <form className="form" onSubmit={handleSubmit}>
           <h3>Complete Your Booking</h3>
 
-          <input name="fullName" placeholder="Full Name" onChange={handleChange} required />
-          <input name="email" type="email" placeholder="Email" onChange={handleChange} required />
-          <input name="phone" placeholder="Phone" onChange={handleChange} required />
+          <input
+            name="fullName"
+            placeholder="Full Name"
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="phone"
+            placeholder="Phone"
+            onChange={handleChange}
+            required
+          />
 
           <div className="row">
             <div>
               <label>Check-In</label>
-              <input type="date" name="checkIn" min={minCheckInDate} onChange={handleChange} required />
+              <input
+                type="date"
+                name="checkIn"
+                min={minCheckInDate}
+                onChange={handleChange}
+                required
+              />
             </div>
 
             <div>
               <label>Check-Out</label>
-              <input type="date" name="checkOut" min={minCheckOutDate} onChange={handleChange} required />
+              <input
+                type="date"
+                name="checkOut"
+                min={minCheckOutDate}
+                onChange={handleChange}
+                required
+              />
             </div>
           </div>
 
           <label>Guests</label>
-          <input type="number" name="guests" min="1" onChange={handleChange} />
+          <input
+            type="number"
+            name="guests"
+            min="1"
+            value={form.guests}
+            onChange={handleChange}
+          />
 
           <button type="submit" className="submit">
             Confirm Booking →
@@ -131,7 +169,6 @@ function Booking() {
           background: linear-gradient(to bottom, #f8fafc, #ffffff);
         }
 
-        /* LEFT */
         .summary {
           background: white;
           border-radius: 20px;
@@ -189,7 +226,6 @@ function Booking() {
           font-weight: 600;
         }
 
-        /* FORM */
         .form {
           background: white;
           padding: 24px;
@@ -235,7 +271,6 @@ function Booking() {
           opacity: 0.9;
         }
 
-        /* MOBILE */
         @media (max-width: 900px) {
           .booking {
             grid-template-columns: 1fr;
