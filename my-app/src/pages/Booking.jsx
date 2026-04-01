@@ -3,8 +3,9 @@ import { useState } from "react";
 import axios from "axios";
 import packages from "../data/package";
 import { useNavigate } from "react-router-dom";
-const navigate = useNavigate();
+
 function Booking() {
+  const navigate = useNavigate();
   const { slug } = useParams();
   const pkg = packages.find((p) => p.slug === slug);
 
