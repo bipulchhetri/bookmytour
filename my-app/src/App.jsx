@@ -9,6 +9,8 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/packages" element={<Allpackage />} />
       <Route path="/booking/:slug" element={<Booking />} />
+      <Route path="/success" element={<Success />} />  {/* ✅ MUST */}
+
     </Routes>
   );
 }
