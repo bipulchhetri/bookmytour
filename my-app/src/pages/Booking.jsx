@@ -5,7 +5,6 @@ import packages from "../data/package";
 import { useNavigate } from "react-router-dom";
 
 function Booking() {
-  const navigate = useNavigate();
   const { slug } = useParams();
   const pkg = packages.find((p) => p.slug === slug);
 
