@@ -81,7 +81,7 @@ export default function Services() {
         }
 
         .icon {
-          color: #1e88e5;
+          color: orange;
         }
 
         .card p {

@@ -140,7 +140,7 @@ function PackageCard({ pkg }) {
 
         /* BUTTON */
         .pkg-card__btn {
-          background: linear-gradient(135deg, #1e88e5, #2563eb);
+          background: orange;
           color: white;
           border: none;
           padding: 10px 16px;

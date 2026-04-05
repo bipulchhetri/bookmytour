@@ -10,7 +10,7 @@ export default function Navbar() {
       <header className="nav">
         {/* LOGO */}
         <div className="logo">
-          <Link to="/">Tripora</Link>
+          <Link to="/">Trip Buddy</Link>
         </div>
 
         {/* DESKTOP MENU */}
@@ -123,11 +123,10 @@ export default function Navbar() {
           place-items: center;
         }
 
-        .cta {
+        .cta{
           background: white !important;
           border: none;
           padding: 10px 18px;
-          color: black !important;
           border-radius: 4px;
           cursor: pointer;
           font-size: 13px;
@@ -136,7 +135,7 @@ export default function Navbar() {
           text-decoration:none;
           color:black !important:
         }
-    
+
         /* MOBILE BUTTON */
         .menuBtn {
           display: none;
@@ -152,7 +151,7 @@ export default function Navbar() {
           top: 100%;
           left: 0;
           width: 100%;
-          background: #0a2346;
+          background: orange;
           display: flex;
           flex-direction: column;
           padding: 20px;
@@ -162,6 +161,7 @@ export default function Navbar() {
           opacity: 0;
           pointer-events: none;
           transition: 0.3s ease;
+     
         }
 
         .mobileMenu.open {

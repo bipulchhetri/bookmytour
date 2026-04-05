@@ -9,8 +9,8 @@ const Allpackage = () => {
         <header className="page-header">
           <div>
             <h1>Explore Hotel Packages</h1>
-            <p>Handpicked stays for your perfect trip</p>
           </div>
+
           <button className="viewAll">View All</button>
         </header>
 
@@ -44,22 +44,15 @@ const Allpackage = () => {
           }
 
           .page-header h1 {
-            font-size: clamp(24px, 3vw, 36px);
             font-weight: 800;
-            margin: 0;
-            background: linear-gradient(90deg, #0f172a, #1e88e5);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: black;
+           
           }
 
-          .page-header p {
-            font-size: 14px;
-            color: #64748b;
-            margin-top: 6px;
-          }
+        
 
           .viewAll {
-            background: #1e88e5;
+            background: orange;
             color: white;
             border: none;
             padding: 10px 18px;

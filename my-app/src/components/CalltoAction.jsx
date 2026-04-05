@@ -16,14 +16,22 @@ export default function CalltoAction() {
           <div className="ctaActions">
             <button
               className="primaryBtn"
-              onClick={() => navigate("/Allpackage")}
+              onClick={() => navigate("/packages")}
             >
               View All Packages →
             </button>
 
-            <button className="secondaryBtn">
-              Talk to Expert
-            </button>
+            <button
+  className="secondaryBtn"
+  onClick={() =>
+    window.open(
+      "https://wa.me/8250742530?text=Hi, I want to know more about your travel packages",
+      "_blank"
+    )
+  }
+>
+  Talk to Expert
+</button>
           </div>
         </div>
       </section>
@@ -36,12 +44,7 @@ export default function CalltoAction() {
           width: 100vw;
           margin-left: calc(50% - 50vw);
           padding: 80px 20px;
-          background: linear-gradient(
-            135deg,
-            #0f172a,
-            #1e293b,
-            #1e88e5
-          );
+          background:black;
           color: white;
           text-align: center;
           position: relative;
@@ -102,7 +105,7 @@ export default function CalltoAction() {
 
         .primaryBtn {
           background: white;
-          color: #1e88e5;
+          color: black;
           border: none;
           padding: 14px 28px;
           border-radius: 999px;

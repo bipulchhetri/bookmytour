@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="footer__container">
           {/* BRAND */}
           <div className="footer__brand">
-            <h2>Travel.co</h2>
+            <h2>Trip Buddy</h2>
             <p>
               Discover the world with premium travel experiences,
               curated just for you.
@@ -56,7 +56,7 @@ export default function Footer() {
 
         {/* BOTTOM */}
         <div className="footer__bottom">
-          <p>© {new Date().getFullYear()} Travel.co. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Trip Buddy . All rights reserved.</p>
         </div>
       </footer>
 
@@ -67,8 +67,8 @@ export default function Footer() {
         .footer {
           width: 100vw;
           margin-left: calc(50% - 50vw);
-          background: #0f172a;
-          color: #e2e8f0;
+          background: orange;
+          color: white;
           padding-top: 60px;
         }
 
@@ -83,13 +83,13 @@ export default function Footer() {
 
         /* BRAND */
         .footer__brand h2 {
-          color: white;
+          color: black;
           margin-bottom: 10px;
         }
 
         .footer__brand p {
           font-size: 14px;
-          color: #94a3b8;
+          color: white;
           margin-bottom: 16px;
         }
 
@@ -107,13 +107,13 @@ export default function Footer() {
         .footer__links h4,
         .footer__newsletter h4 {
           margin-bottom: 12px;
-          color: white;
+          color: black;
         }
 
         .footer__links a {
           display: block;
           font-size: 14px;
-          color: #94a3b8;
+          color: white;
           text-decoration: none;
           margin-bottom: 8px;
           transition: 0.2s;
@@ -126,7 +126,7 @@ export default function Footer() {
         /* NEWSLETTER */
         .footer__newsletter p {
           font-size: 14px;
-          color: #94a3b8;
+          color: white;
           margin-bottom: 12px;
         }
 
@@ -149,9 +149,9 @@ export default function Footer() {
         }
 
         .newsletterBox button {
-          background: #1e88e5;
+          background: white;
           border: none;
-          color: white;
+          color: black;
           padding: 8px 12px;
           border-radius: 8px;
           font-size: 13px;
@@ -169,7 +169,7 @@ export default function Footer() {
           text-align: center;
           border-top: 1px solid #1e293b;
           font-size: 13px;
-          color: #64748b;
+          color: black;
         }
 
         /* TABLET */
