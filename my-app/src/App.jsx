@@ -2,6 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Allpackage from "./pages/Allpackage";
 import Booking from "./pages/Booking";
+import Success from "./pages/Success";
+
 
 function App() {
   return (
