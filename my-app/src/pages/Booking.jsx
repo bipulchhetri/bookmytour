@@ -57,7 +57,12 @@ function Booking() {
 
       if (res.status === 201) {
         alert("Booking Successful ✅");
-        navigate("/success");
+        navigate("/success",
+          {
+            state: bookingData,
+          }
+        );
+       
       }
     } catch (error) {
       console.error("Booking Error:", error);
